@@ -5,8 +5,9 @@ module I18n::Workflow::ExplicitScopeKeyWithExceptions
     key = scope.pop
 
     # ignore faker translations, faker gem does not support scopes
-    scope = scope.map { |s| "#{s}_scope".to_sym } unless [:faker].include?(scope.first)
+    # ignore unauthorized, cancancan and scopes dose not work correctly
+    scope = scope.map { |s| "#{s}_scope".to_sym } unless [:faker, :unauthorized].include?(scope.first)
 
-    super(locale, key, scope, options.merge(cascade: true))
+    super(locale, key, scope, options)
   end
 end
