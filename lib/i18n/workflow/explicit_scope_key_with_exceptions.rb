@@ -6,7 +6,8 @@ module I18n::Workflow::ExplicitScopeKeyWithExceptions
 
     # ignore faker translations, faker gem does not support scopes
     # ignore unauthorized, cancancan and scopes dose not work correctly
-    scope = scope.map { |s| "#{s}_scope".to_sym } unless [:faker, :unauthorized].include?(scope.first)
+    # will paginate does not support scope
+    scope = scope.map { |s| "#{s}_scope".to_sym } unless [:faker, :unauthorized, :will_paginate].include?(scope.first)
 
     super(locale, key, scope, options)
   end
