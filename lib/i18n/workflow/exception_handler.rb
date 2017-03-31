@@ -65,7 +65,7 @@ module I18n::Workflow
 
     # Returns a YAML string with the missing translations
     def missing_translations_to_yaml
-      missing_translations_to_hash.deep_symbolize_keys.to_yaml
+      missing_translations_to_hash.deep_stringify_keys.to_yaml
     end
 
     def filter_missing_translations(match_key)
@@ -87,7 +87,7 @@ module I18n::Workflow
         current_missing_translations = {} unless current_missing_translations.is_a?(Hash)
 
         file = File.open(missing_translations_path, "w+")
-        file.write(missing_translations_to_hash(locale).deep_symbolize_keys.deep_merge(current_missing_translations).to_yaml)
+        file.write(missing_translations_to_hash(locale).deep_stringify_keys.deep_merge(current_missing_translations).to_yaml)
         file.close
 
         clear_missing_translations
