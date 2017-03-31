@@ -22,17 +22,18 @@ module I18n::Workflow
 
         locale = keys.shift
         last_key = keys.pop
-        keys = [locale] + keys.map { |s| "#{s}_scope".to_sym } + [last_key]
+        # keys = [locale] + keys.map { |s| "#{s}_scope".to_sym } + [last_key]
+        keys = [locale] + [last_key]
 
         unless keys.length == 2 and keys.last.nil?
           missing_translations << keys
         end
 
-        interpolations = options.symbolize_keys.except(*(I18n::RESERVED_KEYS + [:rescue_format]))
-        keys.last.to_s.gsub('_', ' ').capitalize + " " + interpolations.values.join(" ")
-      else
-        super
+        # interpolations = options.symbolize_keys.except(*(I18n::RESERVED_KEYS + [:rescue_format]))
+        # keys.last.to_s.gsub('_', ' ').capitalize + " " + interpolations.values.join(" ")
       end
+
+      super
     end
 
     # Returns if there are any missing translations
