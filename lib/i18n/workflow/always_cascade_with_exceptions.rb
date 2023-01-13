@@ -3,7 +3,7 @@ module I18n::Workflow::AlwaysCascadeWithExceptions
   def lookup(locale, key, scope = [], options = {})
     
     # :unauthorized is cancancan scope, cascade caused tricky issues
-    options = options.merge(cascade: true) unless [:unauthorized].include?(scope&.first)
+    options = options.merge(cascade: true) unless [:unauthorized].include?(scopes.is_a?(Array) ? scope&.first : scope)
 
     super(locale, key, scope, options)
   end
