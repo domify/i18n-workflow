@@ -2,7 +2,10 @@
 module I18n::Workflow::ExplicitScopeKeyWithExceptions
   def lookup(locale, key, scope = [], options = {})
     scope = I18n.normalize_keys(nil, key, scope, options[:separator] || I18n.default_separator)
+
+    # Fixes translation lookup for i18n 1.13.0
     scope = scope[1..] if scope.first.nil?
+
     key = scope.pop
 
     # ignore faker translations, faker gem does not support scopes
